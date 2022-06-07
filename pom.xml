@@ -7,6 +7,7 @@
     <modules>
         <module>demo-connections-rest</module>
         <module>demo-connections-api</module>
+        <module>demo-connections-db</module>
     </modules>
 
     <parent>
@@ -33,6 +34,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.3</version>
         </dependency>
 
     </dependencies>

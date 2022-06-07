@@ -4,24 +4,44 @@ info:
   version: 0.0.1
   title: Posts
   description: The posts service
+servers:
+  - url: /connections/
 
 tags:
   - name: post
 
 paths:
-  /service/post/{postId}:
+
+  /users:
     get:
-      summary: Post by id
+      summary: Find all users
+      tags:
+        - Library
+      description: This is description
+      operationId: findAllUsers
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /users/{userid}:
+    get:
+      summary: Find user by userId
       tags:
         - post
-      description: This is description
-      operationId: getPostById
+      operationId: getUserByUserId
       parameters:
         - in: path
-          name: postId
+          name: userid
           required: true
           schema:
             type: integer
+            format: int64
       responses:
         "200":
           description: This means is ok
@@ -30,51 +50,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/Post'
         "404":
-          description: Not faund
+          description: Not found
           content:
             text/plan:
               schema:
                 type: string
 
-  /service/post:
-    post:
-      summary: Create post
-      tags:
-        - Library
-      description: This is description
-      operationId: newPost
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Post'
-
-      responses:
-        "200":
-          description: This means is ok
-          content:
-            text/plan:
-              schema:
-                type: string
+  /connections:
 
 components:
   schemas:
-    Post:
-      description: model post
+    User:
       type: object
       required:
-        - userId
-        - title
-        - body
+        - name
+        - username
       properties:
-        userId:
-          description: user id
+        name:
+          type: string
+        username:
+          type: string
+
+    Connection:
+      type: object
+      properties:
+        follower:
           type: integer
           format: int64
-        title:
-          description: title post
-          type: string
-        body:
-          description: body post
-          type: string
+        followed:
+          type: integer
+          format: int64
