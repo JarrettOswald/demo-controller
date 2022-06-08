@@ -48,7 +48,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Post'
+                $ref: '#/components/schemas/User'
         "404":
           description: Not found
           content:
@@ -57,6 +57,38 @@ paths:
                 type: string
 
   /connections:
+    get:
+      summary: Get connections
+      operationId: getConnections
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connection'
+
+  /connections/{username}:
+    get:
+      summary: Get connection by username
+      operationId: getConnections
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connection'
 
 components:
   schemas:
